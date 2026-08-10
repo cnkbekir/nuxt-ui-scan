@@ -1,0 +1,45 @@
+{
+  "name": "nuxt-ui-scan",
+  "version": "0.1.0",
+  "description": "Deterministic UI/UX audit CLI for Nuxt 3 & Nuxt UI projects",
+  "type": "module",
+  "license": "MIT",
+  "bin": {
+    "nuxt-ui-scan": "./bin/nuxt-ui-scan.js"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "bin"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "prepublishOnly": "pnpm build"
+  },
+  "dependencies": {
+    "@clack/prompts": "^0.10.0",
+    "@vue/compiler-sfc": "^3.5.13",
+    "cac": "^6.7.14",
+    "fast-glob": "^3.3.3",
+    "picocolors": "^1.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.0",
+    "tsup": "^8.4.0",
+    "typescript": "^5.8.0",
+    "vitest": "^3.1.0"
+  }
+}
