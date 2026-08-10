@@ -147,7 +147,7 @@ console.log(`Total Score: ${summary.totalScore}/100 (Grade ${summary.grade})`);
 
 ---
 
-## 🧱 Development
+## 🧱 Development & Releasing
 
 ```bash
 # Clone the repository
@@ -166,6 +166,9 @@ pnpm test
 # Test CLI locally
 node bin/nuxt-ui-scan.js .
 ```
+
+For release workflows and version management instructions, see [CONTRIBUTING.md](CONTRIBUTING.md).
+
 
 ---
 

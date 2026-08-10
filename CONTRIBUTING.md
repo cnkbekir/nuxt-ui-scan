@@ -99,4 +99,35 @@ Thank you for your interest in contributing to `nuxt-ui-scan`! We welcome contri
 - Ensure your branch is up-to-date with `main`.
 - Open a Pull Request on GitHub with a summary of changes and reference any related issues.
 
+---
+
+## 📦 Release & Versioning
+
+Releases are automated via GitHub Actions and **NPM Trusted Publishers (OIDC)**.
+
+### How to Publish a New Version:
+
+1. **Bump Version in `package.json`**:
+   ```bash
+   # Update version field in package.json (e.g., 0.1.1)
+   ```
+
+2. **Commit and Push Changes**:
+   ```bash
+   git add package.json
+   git commit -m "bump: version 0.1.1"
+   git push origin main
+   ```
+
+3. **Publish GitHub Release**:
+   - Go to [GitHub Releases](https://github.com/cnkbekir/nuxt-ui-scan/releases).
+   - Click **Draft a new release**.
+   - Create a tag matching the version (e.g. `v0.1.1`).
+   - Click **Publish release**.
+
+The GitHub Actions [publish.yml](.github/workflows/publish.yml) workflow will automatically build, test, and publish the new version to NPM with `--provenance` verification.
+
+---
+
 Thank you for helping build a better UI/UX audit tool for the Nuxt ecosystem! 🚀
+
