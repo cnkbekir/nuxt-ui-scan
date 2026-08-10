@@ -1,13 +1,13 @@
 # nuxt-ui-scan 🔍
 
-> **Deterministic UI/UX audit CLI tool for Nuxt 3 & Nuxt UI projects.**  
+> **Deterministic UI/UX audit CLI tool for Nuxt UI & Vue projects.**  
 > Inspired by [`TheOrcDev/shadscan`](https://github.com/TheOrcDev/shadscan).
 
 [![npm version](https://img.shields.io/npm/v/nuxt-ui-scan.svg?color=green)](https://www.npmjs.com/package/nuxt-ui-scan)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Node.js Version](https://img.shields.io/badge/node-%3E%3D18.0.0-blue.svg)](https://nodejs.org)
 
-`nuxt-ui-scan` performs static AST-based and structural audits on **Nuxt 3** and **Nuxt UI (v2 / v3 / v4)** codebases. It computes a normalized **0–100 UI/UX quality score** with letter grades (A–F) and can generate paste-ready **AI remediation plans** for AI Coding Agents (Claude, Cursor, Copilot).
+`nuxt-ui-scan` performs static AST-based and structural audits on any codebase using **Nuxt UI** — including **Vue (Vite)** and **Nuxt** applications. It computes a normalized **0–100 UI/UX quality score** with letter grades (A–F) and can generate paste-ready **AI remediation plans** for AI Coding Agents (Claude, Cursor, Copilot).
 
 ---
 
@@ -93,14 +93,16 @@ npx nuxt-ui-scan --json > audit-report.json
 
 ## 📋 Audit Rules
 
-| Rule ID | Category | Weight | Name | Description |
-| :--- | :--- | :---: | :--- | :--- |
-| `FOUNDATION_001` | Foundation | 15 | **UApp Wrapper** | Checks if `<UApp>` wrapper is present in root/layout files (`App.vue`, `app.vue`, `layouts/default.vue`). |
-| `FOUNDATION_002` | Foundation | 5 | **Error Boundary** | Checks if an `error.vue` file exists in the project root. |
-| `FORMS_001` | Forms | 10 | **UForm Schema Validation** | Verifies `<UForm>` elements have `:schema` bound. |
-| `INTERACTION_001` | Interaction | 10 | **Command Palette Shortcut** | Checks if `<UCommandPalette>` usage is paired with `defineShortcuts`. |
-| `STATES_001` | States | 10 | **Skeleton Loading States** | Checks if data fetch composables (`useFetch`/`useAsyncData`) destructure loading state or use `<USkeleton>`. |
-| `A11Y_001` | Accessibility | 10 | **Button Accessibility Labels** | Ensures icon-only `<UButton>` components specify `aria-label` or `label`. |
+`nuxt-ui-scan` includes 39 deterministic static analysis rules across 6 core audit categories:
+
+| Category | Rules | Description & Focus |
+| :--- | :---: | :--- |
+| **Foundation** | 7 | `<UApp>` wrapper presence, `error.vue` boundary, `@nuxt/ui` modules config, favicon, 404 custom page, meta tags, color mode. |
+| **Forms** | 6 | `<UForm>` schema validation, form error handling, input type attributes, placeholder vs label usage, required indicators, submit button. |
+| **Interaction** | 6 | `<UCommandPalette>` shortcuts, `<UNotifications>` toast feedback, responsive mobile navigation, breadcrumbs, modal confirmation actions, dropdown menus. |
+| **States** | 6 | Skeleton loading states for `useFetch`, error handling states, empty data states, pending button loading indicators, success feedback, transition animations. |
+| **Accessibility** | 8 | `<UButton>` aria-labels, `<img>`/`<NuxtImg>` alt attributes, form field explicit labeling, heading hierarchy (`h1`-`h6`), skip to content link, focus-visible styles, keyboard navigation handlers, `sr-only` utility text. |
+| **Production** | 6 | Dark mode / color mode toggle support, `console.log` cleanliness check, hardcoded production URLs, inline style clean-up, `@nuxt/image` optimization, responsive layout utilities. |
 
 ---
 
@@ -149,7 +151,7 @@ console.log(`Total Score: ${summary.totalScore}/100 (Grade ${summary.grade})`);
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/nuxt-ui-scan.git
+git clone https://github.com/cnkbekir/nuxt-ui-scan.git
 cd nuxt-ui-scan
 
 # Install dependencies
@@ -169,10 +171,11 @@ node bin/nuxt-ui-scan.js .
 
 ## 🙏 Credits & Acknowledgements
 
-This project was inspired by **[`TheOrcDev/shadscan`](https://github.com/TheOrcDev/shadscan)** — a UI/UX audit CLI tool for Shadcn UI and Next.js applications. `nuxt-ui-scan` adapts these audit concepts specifically for the **Nuxt 3 & Nuxt UI** ecosystem.
+This project was inspired by **[`TheOrcDev/shadscan`](https://github.com/TheOrcDev/shadscan)** — a UI/UX audit CLI tool for Shadcn UI and Next.js applications. `nuxt-ui-scan` adapts these audit concepts specifically for the **Nuxt UI & Vue** ecosystem.
 
 ---
 
 ## 📄 License
 
 [MIT](LICENSE) © 2026 nuxt-ui-scan
+

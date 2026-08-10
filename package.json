@@ -1,9 +1,30 @@
 {
   "name": "nuxt-ui-scan",
   "version": "0.1.0",
-  "description": "Deterministic UI/UX audit CLI for Nuxt 3 & Nuxt UI projects",
+  "description": "Deterministic UI/UX audit CLI for Nuxt UI & Vue projects",
   "type": "module",
   "license": "MIT",
+  "author": "Bekir Çankaya <cnkbekir@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cnkbekir/nuxt-ui-scan.git"
+  },
+  "bugs": {
+    "url": "https://github.com/cnkbekir/nuxt-ui-scan/issues"
+  },
+  "homepage": "https://github.com/cnkbekir/nuxt-ui-scan#readme",
+  "keywords": [
+    "nuxt",
+    "nuxt3",
+    "nuxt-ui",
+    "cli",
+    "audit",
+    "ui-ux",
+    "linter",
+    "static-analysis",
+    "vue",
+    "accessibility"
+  ],
   "bin": {
     "nuxt-ui-scan": "./bin/nuxt-ui-scan.js"
   },
@@ -17,7 +38,9 @@
   },
   "files": [
     "dist",
-    "bin"
+    "bin",
+    "README.md",
+    "LICENSE"
   ],
   "engines": {
     "node": ">=18.0.0"

@@ -12,7 +12,7 @@ import { generateAIPrompt } from './reporters/ai-prompt.js';
 const cli = cac('nuxt-ui-scan');
 
 cli
-  .command('[dir]', 'Audit a Nuxt UI project for UI/UX best practices')
+  .command('[dir]', 'Audit a Nuxt UI & Vue project for UI/UX best practices')
   .option('--json', 'Output results as JSON')
   .option('--prompt', 'Generate an AI remediation prompt')
   .option('--fail-under <score>', 'Exit with code 1 if score is below threshold', { type: [Number] })

@@ -6,11 +6,25 @@ export const errorBoundaryRule: Rule = {
   name: 'Error Boundary',
   category: 'foundation',
   weight: 5,
-  description: 'Checks if an error.vue file exists in the project root.',
+  description: 'Checks if an error boundary file (error.vue, ErrorBoundary.vue) or onErrorCaptured hook exists.',
   check: (ctx: AuditContext): RuleResult => {
-    const errorFile = ctx.files.find(f => f.relativePath === 'error.vue');
+    const hasErrorFile = ctx.files.some(f => {
+      const lower = f.relativePath.replace(/\\/g, '/').toLowerCase();
+      return (
+        lower === 'error.vue' ||
+        lower === 'src/error.vue' ||
+        lower.endsWith('/error.vue') ||
+        lower.endsWith('/errorboundary.vue')
+      );
+    });
 
-    if (!errorFile) {
+    const hasErrorHook = ctx.files.some(f =>
+      f.content.includes('onErrorCaptured') || f.content.includes('NuxtErrorBoundary')
+    );
+
+    const passed = hasErrorFile || hasErrorHook;
+
+    if (!passed) {
       return {
         ruleId: 'FOUNDATION_002',
         passed: false,
@@ -18,8 +32,8 @@ export const errorBoundaryRule: Rule = {
         violations: [
           {
             filePath: 'error.vue',
-            evidence: 'error.vue not found in project root.',
-            fixSuggestion: 'Create an error.vue file in the project root to handle application errors gracefully.'
+            evidence: 'No error boundary file (error.vue / ErrorBoundary.vue) or onErrorCaptured hook found.',
+            fixSuggestion: 'Create an error.vue file or implement onErrorCaptured to handle application runtime errors gracefully.'
           }
         ]
       };
@@ -33,3 +47,4 @@ export const errorBoundaryRule: Rule = {
     };
   }
 };
+
