@@ -7,7 +7,11 @@ import { nuxtImageUsedRule } from '../src/rules/production/nuxt-image-used.js';
 import { noInlineStylesRule } from '../src/rules/production/no-inline-styles.js';
 import { darkModeSupportRule } from '../src/rules/production/dark-mode-support.js';
 
-function createMockContext(vueFiles: Partial<ParsedFile>[] = [], tsFiles: Partial<ParsedFile>[] = []): AuditContext {
+function createMockContext(
+  vueFiles: Partial<ParsedFile>[] = [],
+  tsFiles: Partial<ParsedFile>[] = [],
+  framework: 'nuxt' | 'vue-spa' = 'nuxt'
+): AuditContext {
   const fullVueFiles: ParsedFile[] = vueFiles.map((f, i) => ({
     filePath: f.filePath || `/project/components/Comp${i}.vue`,
     relativePath: f.relativePath || `components/Comp${i}.vue`,
@@ -31,6 +35,8 @@ function createMockContext(vueFiles: Partial<ParsedFile>[] = [], tsFiles: Partia
     files: allFiles,
     vueFiles: fullVueFiles,
     tsFiles: fullTsFiles,
+    framework,
+    isNuxt: framework === 'nuxt',
     getFilesByPattern: () => []
   };
 }
@@ -109,11 +115,18 @@ describe('Production Rules', () => {
       expect(res.passed).toBe(true);
     });
 
-    it('fails when raw img tag is used without Nuxt image component', () => {
-      const ctx = createMockContext([{ templateAst: `<img src="/hero.jpg" alt="Hero" />` }]);
+    it('fails when raw img tag is used without Nuxt image component in Nuxt project', () => {
+      const ctx = createMockContext([{ templateAst: `<img src="/hero.jpg" alt="Hero" />` }], [], 'nuxt');
       const res = nuxtImageUsedRule.check(ctx);
       expect(res.passed).toBe(false);
       expect(res.violations).toHaveLength(1);
+    });
+
+    it('passes when raw img tag is used in non-Nuxt vue-spa project', () => {
+      const ctx = createMockContext([{ templateAst: `<img src="/hero.jpg" alt="Hero" />` }], [], 'vue-spa');
+      const res = nuxtImageUsedRule.check(ctx);
+      expect(res.passed).toBe(true);
+      expect(res.violations).toHaveLength(0);
     });
   });
 

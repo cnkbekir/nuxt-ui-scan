@@ -24,5 +24,6 @@ export interface Rule {
   category: Category;
   weight: number;
   description: string;
+  framework?: 'nuxt' | 'vue-spa' | 'all';
   check: (ctx: AuditContext) => Promise<RuleResult> | RuleResult;
 }

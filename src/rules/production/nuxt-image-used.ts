@@ -6,8 +6,18 @@ export const nuxtImageUsedRule: Rule = {
   name: 'NuxtImage Optimization',
   category: 'production',
   weight: 5,
+  framework: 'nuxt',
   description: 'Checks that NuxtImg/NuxtPicture are used instead of raw img tags for optimization.',
   check: (ctx: AuditContext): RuleResult => {
+    if (!ctx.isNuxt) {
+      return {
+        ruleId: 'PRODUCTION_004',
+        passed: true,
+        confidence: 'high',
+        violations: []
+      };
+    }
+
     const violations: RuleViolation[] = [];
 
     for (const file of ctx.vueFiles) {

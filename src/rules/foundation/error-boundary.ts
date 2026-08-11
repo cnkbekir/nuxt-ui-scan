@@ -22,7 +22,19 @@ export const errorBoundaryRule: Rule = {
       f.content.includes('onErrorCaptured') || f.content.includes('NuxtErrorBoundary')
     );
 
-    const passed = hasErrorFile || hasErrorHook;
+    let passed = hasErrorFile || hasErrorHook;
+
+    // For Vue SPA apps, check for app.config.errorHandler or Router 404/catch-all
+    if (!passed && !ctx.isNuxt) {
+      const hasSpaErrorHandler = ctx.files.some(f =>
+        f.content.includes('errorHandler') ||
+        f.content.includes('pathMatch') ||
+        f.content.includes('catchAll')
+      );
+      if (hasSpaErrorHandler) {
+        passed = true;
+      }
+    }
 
     if (!passed) {
       return {
