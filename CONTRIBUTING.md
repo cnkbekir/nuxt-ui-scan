@@ -105,27 +105,29 @@ Thank you for your interest in contributing to `nuxt-ui-scan`! We welcome contri
 
 Releases are automated via GitHub Actions and **NPM Trusted Publishers (OIDC)**.
 
+### NPM Trusted Publisher (OIDC) Setup:
+- **Registry Settings**: On npmjs.com, configure Trusted Publisher for repository `cnkbekir/nuxt-ui-scan` with workflow `publish.yml`.
+- **Workflow Requirements**: Requires Node.js `22.x`, `npm@11`, `id-token: write` permission, and `registry-url: 'https://registry.npmjs.org'`. No `NPM_TOKEN` secret is needed.
+
 ### How to Publish a New Version:
 
-1. **Bump Version in `package.json`**:
-   ```bash
-   # Update version field in package.json (e.g., 0.1.1)
-   ```
+1. **Bump Version**:
+   Update version field in `package.json` and `src/cli.ts`.
 
 2. **Commit and Push Changes**:
    ```bash
-   git add package.json
-   git commit -m "bump: version 0.1.1"
+   git add package.json src/cli.ts
+   git commit -m "bump: version 0.2.0"
    git push origin main
    ```
 
 3. **Publish GitHub Release**:
    - Go to [GitHub Releases](https://github.com/cnkbekir/nuxt-ui-scan/releases).
    - Click **Draft a new release**.
-   - Create a tag matching the version (e.g. `v0.1.1`).
+   - Create a tag matching the version (e.g. `v0.2.0`).
    - Click **Publish release**.
 
-The GitHub Actions [publish.yml](.github/workflows/publish.yml) workflow will automatically build, test, and publish the new version to NPM with `--provenance` verification.
+The GitHub Actions [.github/workflows/publish.yml](.github/workflows/publish.yml) workflow will automatically build, test, and publish the new version to NPM with `--provenance` verification.
 
 ---
 

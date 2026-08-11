@@ -63,15 +63,33 @@ Options:
   --json                Output results as machine-readable JSON
   --prompt              Generate an AI remediation prompt (Markdown)
   --fail-under <score>  Exit with code 1 if score is below specified threshold
+  --framework <type>    Specify target framework: 'nuxt' or 'vue-spa' (auto-detected by default)
+  --ignore <rules>      Comma-separated list of rule IDs to ignore (e.g. PRODUCTION_004,FOUNDATION_002)
   -h, --help            Display help information
   -v, --version         Display version number
 ```
 
+### Configuration File (`.scanrc.json`)
+
+You can also place a `.scanrc.json` or `nuxt-ui-scan.config.json` in your project root:
+
+```json
+{
+  "framework": "vue-spa",
+  "ignoreRules": ["PRODUCTION_004", "FOUNDATION_002"]
+}
+```
+
 ### Examples
 
-#### Standard Console Audit
+#### Standard Console Audit (Auto-detects Nuxt vs Vue SPA)
 ```bash
 npx nuxt-ui-scan
+```
+
+#### Specify Framework & Ignore Rules
+```bash
+npx nuxt-ui-scan --framework vue-spa --ignore PRODUCTION_004,FOUNDATION_002
 ```
 
 #### Generate AI Remediation Plan
